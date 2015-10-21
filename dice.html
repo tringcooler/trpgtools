@@ -7,15 +7,28 @@
 <script>
 $(document).ready(function() {
 	var dice = new c_dice();
-	$('#form').on('submit', dice_roll);
+	//$('#form').on('submit', dice_roll);
 	$('#dice_bar+input').on('click', dice_roll);
+	$('#dice_bar+input+input').on('click', dice_check);
 	function dice_roll() {
-		var s = $('#dice_bar').val().trim().split(' ')[0];
-		var r = dice.roll(s);
-		var rs = r[1] + 'd' + r[2] + '  value: ' + r[0] + '  chk: ' + r[3];
-		$('#dice_bar').val(rs);
+		var s = $('#dice_bar').val().trim();
+		var r;
+		try {
+			r = dice.roll(s);
+		} catch(e) {
+			r = 'Error:' + e;
+		}
+		$('#dice_bar').val(r);
 		$('#dice_bar').select();
 		return false;
+	}
+	function dice_check() {
+		var s = $('#dice_bar').val().trim();
+		var r = dice.check(s);
+		if(!r)
+			$('#dice_bar+input+input').css('background-color', 'red');
+		else
+			$('#dice_bar+input+input').removeAttr("style");
 	}
 })
 </script>
@@ -23,7 +36,9 @@ $(document).ready(function() {
 <body>
 	<div>
 		<div>Dice type(i.e. 1d100, 3d6):</div>
-		<form id='dice_form'><input id='dice_bar' spellcheck='false' autocomplete='off' style='width:400px'/><input type='submit' value='roll'/></form>
+		<form id='dice_form'>
+			<input id='dice_bar' spellcheck='false' autocomplete='off' style='width:400px'/><input type='submit' value='roll'/><input type='button' value='check'/>
+		</form>
 	</div>
 </body>
 </html>
