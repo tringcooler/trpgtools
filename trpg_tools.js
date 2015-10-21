@@ -48,7 +48,9 @@ var c_dice = (function() {
 		var rslt = {};
 		rslt.dice = rs[1];
 		if(rs[5]) {
-			rslt.cond = rs[5];
+			rslt.cond = rs[6].trim() + rs[7].trim()
+			if(rs[8])
+				rslt.cond += rs[8].trim();
 		}
 		if(rs[9]) {
 			rslt.val = rs[4].trim();
@@ -66,8 +68,8 @@ var c_dice = (function() {
 		var val = r[3];
 		var rs = dice + '=' + val
 		if(cond) {
-			var check = eval(val + /(.*)\(.*\)/.exec(cond)[1]);
-			rs += cond + check
+			var check = eval(val + /(.*\d)\s*\(.*\)?/.exec(cond)[1]);
+			rs += cond + ' ' + check
 		}
 		rs += ' cnt: ' + count;
 		if(r.length > 4) rs += ' hst:'
@@ -140,7 +142,7 @@ var c_checker = (function() {
 		return ('0'.repeat(l) + v.toString(16)).slice(-l);
 	};
 	c_checker.prototype._md5 = function(s) {
-		return YaMD5.hashStr(s);
+		return md5(s);//YaMD5.hashStr(s);
 	};
 	return c_checker;
 })();
