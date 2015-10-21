@@ -68,7 +68,7 @@ var c_dice = (function() {
 		var val = r[3];
 		var rs = dice + '=' + val
 		if(cond) {
-			var check = eval(val + /(.*\d)\s*\(.*\)?/.exec(cond)[1]);
+			var check = eval(val + /(.*\d)\s*(\(.*\))?/.exec(cond)[1]);
 			rs += cond + ' ' + check
 		}
 		rs += ' cnt: ' + count;
