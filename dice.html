@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>Dice</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="http://rawgit.com/gorhill/yamd5.js/master/yamd5.min.js"></script>
+<script type="text/javascript" src="trpg_tools.js"></script>
+<script>
+$(document).ready(function() {
+	var dice = new c_dice();
+	$('#form').on('submit', dice_roll);
+	$('#dice_bar+input').on('click', dice_roll);
+	function dice_roll() {
+		var s = $('#dice_bar').val().trim().split(' ')[0];
+		var r = dice.roll(s);
+		var rs = r[1] + 'd' + r[2] + '  value: ' + r[0] + '  chk: ' + r[3];
+		$('#dice_bar').val(rs);
+		$('#dice_bar').select();
+		return false;
+	}
+})
+</script>
+</head>
+<body>
+	<div>
+		<div>Dice type(i.e. 1d100, 3d6):</div>
+		<form id='dice_form'><input id='dice_bar' spellcheck='false' autocomplete='off' style='width:400px'/><input type='submit' value='roll'/></form>
+	</div>
+</body>
+</html>
