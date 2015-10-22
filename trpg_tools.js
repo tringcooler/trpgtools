@@ -59,11 +59,11 @@ var c_dice = (function() {
 		}
 	};
 	c_dice.prototype._parse_input = function(s) {
-		var re = /^\s*((\d*\s*d)?\s*\d+)\s*(=\s*(\d+)\s*)?(([<>]=?)\s*([\d+\-*/()]*?[\d)])\s*(\(.*\)\s*)?)?((\w+\s+)?(cnt:\s*(\d+)\s+)?(hst:\s*((\d+\s+)+))?chk:\s*(.*)\s*)?$/;
+		var re = /^\s*((\d*\s*[dD])?\s*\d+)\s*(=\s*(\d+)\s*)?(([<>]=?)\s*([\d+\-*/()]*?[\d)])\s*(\(.*\)\s*)?)?((\w+\s+)?(cnt:\s*(\d+)\s+)?(hst:\s*((\d+\s+)+))?chk:\s*(.*)\s*)?$/;
 		var rs = re.exec(s);
 		if(!rs) throw 'unknown dice';
 		var rslt = {};
-		rslt.dice = rs[1];
+		rslt.dice = rs[1].toLowerCase();
 		if(rs[5]) {
 			rslt.cond = rs[6].trim() + rs[7].trim()
 			if(rs[8])
