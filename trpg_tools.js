@@ -1,4 +1,21 @@
 
+(function _polyfills() {
+	if(!String.prototype.trim) {
+		String.prototype.trim = function() {
+			return /^\s*(.*?)\s*$/.exec(this)[1];
+		};
+	}
+	if(!String.prototype.repeat) {
+		String.prototype.repeat = function(n) {
+			var r = '';
+			for(var i = 0; i < n; i++) {
+				r += this;
+			}
+			return r;
+		};
+	}
+});
+
 function roll(max, min) {
 	if(min == undefined) min = 1;
 	return Math.floor(Math.random() * (max - min + 1)) + min;
