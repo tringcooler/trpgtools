@@ -14,7 +14,7 @@
 			return r;
 		};
 	}
-});
+})();
 
 function roll(max, min) {
 	if(min == undefined) min = 1;
