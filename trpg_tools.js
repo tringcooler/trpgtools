@@ -7,7 +7,7 @@ function roll(max, min) {
 var c_dice = (function() {
 	function c_dice() {
 		this._chk = new c_checker();
-		this._log_time = 5 * 1000; // 30 seconds
+		this._log_time = 30 * 1000; // 30 seconds
 		this._last_dice = [0, 0];
 		this._history = [];
 		this._count = 0;
@@ -15,7 +15,7 @@ var c_dice = (function() {
 	c_dice.prototype.roll = function(s) {
 		var info = this._parse_input(s);
 		var r = this._c_roll(info.dice);
-		return this._output(r, info.cond);
+		return this._output(r, info.cond, info.commt);
 	};
 	c_dice.prototype.check = function(s) {
 		var info = this._parse_input(s);
@@ -42,7 +42,7 @@ var c_dice = (function() {
 		}
 	};
 	c_dice.prototype._parse_input = function(s) {
-		var re = /^\s*((\d*\s*d)?\s*\d+)\s*(=\s*(\d+)\s*)?(([<>]=?)\s*(\d+)\s*(\(.*\)\s*)?)?((\w+\s+)?(cnt:\s*(\d+)\s+)?(hst:\s*((\d+\s+)+))?chk:\s*(.*)\s*)?$/;
+		var re = /^\s*((\d*\s*d)?\s*\d+)\s*(=\s*(\d+)\s*)?(([<>]=?)\s*([\d+\-*/]+)\s*(\(.*\)\s*)?)?((\w+\s+)?(cnt:\s*(\d+)\s+)?(hst:\s*((\d+\s+)+))?chk:\s*(.*)\s*)?$/;
 		var rs = re.exec(s);
 		if(!rs) throw 'unknown dice';
 		var rslt = {};
@@ -50,7 +50,7 @@ var c_dice = (function() {
 		if(rs[5]) {
 			rslt.cond = rs[6].trim() + rs[7].trim()
 			if(rs[8])
-				rslt.cond += rs[8].trim();
+				rslt.commt = rs[8].trim();
 		}
 		if(rs[9]) {
 			rslt.val = rs[4].trim();
@@ -61,15 +61,18 @@ var c_dice = (function() {
 		}
 		return rslt;
 	};
-	c_dice.prototype._output = function(r, cond) {
+	c_dice.prototype._output = function(r, cond, cmt) {
 		var dice = r[0];
 		var count = r[1];
 		var ccode = r[2].split('#')[1];
 		var val = r[3];
 		var rs = dice + '=' + val
 		if(cond) {
-			var check = eval(val + /(.*\d)\s*(\(.*\))?/.exec(cond)[1]);
-			rs += cond + ' ' + check
+			var check = eval(val + cond);
+			rs += cond;
+			if(cmt)
+				rs += cmt;
+			rs += ' ' + check;
 		}
 		rs += ' cnt: ' + count;
 		if(r.length > 4) rs += ' hst:'
