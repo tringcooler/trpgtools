@@ -42,7 +42,7 @@ var c_dice = (function() {
 		}
 	};
 	c_dice.prototype._parse_input = function(s) {
-		var re = /^\s*((\d*\s*d)?\s*\d+)\s*(=\s*(\d+)\s*)?(([<>]=?)\s*([\d+\-*/]+)\s*(\(.*\)\s*)?)?((\w+\s+)?(cnt:\s*(\d+)\s+)?(hst:\s*((\d+\s+)+))?chk:\s*(.*)\s*)?$/;
+		var re = /^\s*((\d*\s*d)?\s*\d+)\s*(=\s*(\d+)\s*)?(([<>]=?)\s*([\d+\-*/()]*?[\d)])\s*(\(.*\)\s*)?)?((\w+\s+)?(cnt:\s*(\d+)\s+)?(hst:\s*((\d+\s+)+))?chk:\s*(.*)\s*)?$/;
 		var rs = re.exec(s);
 		if(!rs) throw 'unknown dice';
 		var rslt = {};
