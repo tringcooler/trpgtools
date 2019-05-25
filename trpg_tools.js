@@ -232,7 +232,7 @@ var c_dice = (function() {
 			var check = eval(info.val + info.cond);
 			rs += info.cond;
 			if(info.commt)
-				rs += info.comt;
+				rs += info.commt;
 			rs += ' ' + check;
 		}
 		if(info.hist && info.hist.length) {

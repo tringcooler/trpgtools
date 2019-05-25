@@ -26,7 +26,12 @@ $(document).ready(function() {
 	}
 	function dice_check() {
 		var s = $('#dice_bar').val().trim();
-		var r = dice.check(s);
+        var r;
+        try{
+            r = dice.check(s);
+        } catch(e) {
+            r = false;
+        }
 		if(!r)
 			$('#dice_bar+input+input').css('background-color', 'red');
 		else
