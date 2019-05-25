@@ -1,9 +1,9 @@
 <html>
 <head>
 <title>Dice</title>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
 <!--script type="text/javascript" src="http://rawgit.com/gorhill/yamd5.js/master/yamd5.min.js"></script-->
-<script type="text/javascript" src="http://rawgit.com/blueimp/JavaScript-MD5/master/js/md5.min.js"></script>
+<script type="text/javascript" src="https://rawgit.com/blueimp/JavaScript-MD5/master/js/md5.min.js"></script>
 <script type="text/javascript" src="trpg_tools.js"></script>
 <script>
 $(document).ready(function() {
@@ -11,6 +11,7 @@ $(document).ready(function() {
 	//$('#form').on('submit', dice_roll);
 	$('#dice_bar+input').on('click', dice_roll);
 	$('#dice_bar+input+input').on('click', dice_check);
+    $('#dice_bar').on('click', function(e){$(this).select();});
 	function dice_roll() {
 		var s = $('#dice_bar').val().trim();
 		var r;
@@ -36,7 +37,7 @@ $(document).ready(function() {
 </head>
 <body>
 	<div>
-		<div>Dice type(i.e. 1d100, 3d6):</div>
+		<div>Dice type(i.e. 1d100, 3d6, 100, 1d4+1d6, 4+6, 1d100>=25, 4+6<3):</div>
 		<form id='dice_form'>
 			<input id='dice_bar' spellcheck='false' autocomplete='off' style='width:400px'/><input type='submit' value='roll'/><input type='button' value='check'/>
 		</form>
